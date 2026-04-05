@@ -18,7 +18,8 @@ jobs:
                 where python
             - name: Install dependencies
               run: |
-                source .venv/bin/activate
+                python -m venv .venv
+                .venv\Scripts\activate
                 pip install -r requirements.txt
             - name: Run tests
               run: |
@@ -49,8 +50,8 @@ jobs:
                  docker run -d --name python-app -p 5001:5001 --restart unless-stopped ci-cd-demo:latest
             - name: check deployment
               run: |
-                sleep 10
-                curl -X GET http://localhost:5001/health || exit 1
-                echo "Deployment successful"
+                Start-Sleep -Seconds 10
+                curl -X GET http://localhost:5001/health || exit /b 1
+                echo Deployment successful
             - name: show running containers
               run: docker ps | grep python-app
